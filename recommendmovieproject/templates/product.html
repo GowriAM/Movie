@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+
+   {{ product.description|truncatewords:155 }}
+
+{% endblock %}
+{% block title %}
+   {% if category %}
+        {{ product.name }} - NETFLIX
+
+{% endif %}
+{% endblock %}
+{% block content %}
+<div class="row my_prod_row_class">
+    <div class="mx_auto">
+        <p> <a href="{% url 'book:allProdCat' %}">Home</a> | <a href ="{{product.category.get_url}}">{{product.category}}</a>|{{product.name}}</p>
+    </div>
+
+<div class="container">
+<br>
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <div style="min-width:18rem">
+            <img src="{{product.image.url}}" width="400px" height="400px" alt="{{product.name}}">
+        </div>
+    </div>
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <div>
+            <h1 class="my_prod_title">{{product.name}}</h1>
+            <p class="my_title">Movie Description</p>
+            <p class="text-justify my_prod_text">{{product.description}}</p>
+                            <p class="my_title">Movie Release Date</p>
+                <p class="text-justify my_prod_text">{{product.releasedate}}</p>
+                            <p class="my_title">Movie Actor</p>
+                <p class="text-justify my_prod_text">{{product.actor}}</p>
+                            <p class="my_title">Movie Category</p>
+                <p class="text-justify my_prod_text">{{product.category}}</p>
+                            <p class="my_title">Movie Link</p>
+                <p class="text-justify my_prod_text"><a href="{{product.link}}">Movie Link</a></p>
+                            <p class="my_title">Movie Review</p>
+                <p class="text-justify my_prod_text"><a href="{% url 'add_review' item_id=item.id %}">Add Review</a></p>
+                            <p class="my_title">Rate Movie</p>
+                <p class="text-justify my_prod_text"><a href="{{review.rating}}">Rate Movie<i class="fa fa-star" aria-hidden="true"></i> ({{item_count}})</a></p>
+                </div>
+            </div>
+            </div>
+    </div>
+</div>
+{% endblock %}

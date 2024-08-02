@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    This is the rate page. Proceed to review your items and place the order
+{% endblock %}
+{% block title %}
+    Rate - NETFLIX
+{% endblock %}
+{% block content %}
+ {% if not rate_movies %}
+<div>
+    <div class="text-center">
+        <br>
+        <h1 class="text-center my_title">
+            Your Shoping Rate is empty
+        </h1>
+        <br>
+        <p class="text-center">
+            Please Click <a href="{% url 'shopapp:allProdCat' %}">Here</a>to continue watching.
+        </p>
+    </div>
+</div>
+{% else %}
+<div>
+    <div class="text-center">
+        <br>
+        <h1 class="text-center my_title">
+            Your Rating Movie
+        </h1>
+        <br>
+    </div>
+</div>
+<div class="row mx-auto">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <table class="table my_custom_table">
+            <thead class="my_custom_thread">
+            <tr>
+                <th colspan="5">
+                    Your Movies
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for rate_movie in rate_movies %}
+            <tr>
+                <td>
+                    <a href="{{rate_movie.product.get_url}}"><img src="{{rate_movie.product.image.url}}" width="100px" height="100px" alt="" class="float-left round custom_image"></a>
+                </td>
+                <td>
+                    <td class="text-left">
+                        {{rate_movie.product.name}}
+                        <br>
+                        SKU: {{rate_movie.product.id}}
+<!--                        <br>-->
+<!--                        Price: $ {{cart_item.product.price}}-->
+<!--                        <br>-->
+<!--                        Qty : {{cart_item.quantity}} x $ {{cart_item}}-->
+                </td>
+<!--                <td>-->
+<!--                    $ {{cart_item.sub_total}}-->
+<!--                </td>-->
+<!--                {% if cart_item.quantity < cart_item.product.stock %}-->
+                <td>
+                    <a href="{% url 'rate:add_cart' cart_item.product.id %}" class="custom_a"><i class="fa fa-plus custom_icon"></i></a>
+<!--                    &nbsp;<a href="{% url 'cartapp:cart_remove' cart_item.product.id %}" class="custom_a"><i class="fa fa-minus custom_icon"></i></a>-->
+<!--                    &nbsp;<a href="{% url 'cartapp:full_remove' cart_item.product.id %}" class="custom_icon"><i class="fa fa-trash custom_icon"></i></a>-->
+                </td>
+<!--                {% else %}-->
+                 <td>
+                      <a href="{% url 'rate:add_cart' cart_item.product.id %}" class="custom_a"><i class="fa fa-star" aria-hidden="true"></i></a>
+<!--                    <a href="{% url 'cartapp:cart_remove' cart_item.product.id %}" class="custom_a">&nbsp;<i class="fa fa-minus custom_icon"></i></a>-->
+<!--                    &nbsp;<a href="{% url 'cartapp:full_remove' cart_item.product.id %}" class="custom_icon"><i class="fa fa-trash custom_icon"></i></a>-->
+                </td>
+<!--                {% endif %}-->
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-12 col-sm-12 col-lg-6 text-center">
+        <table class="table my_custom_table">
+            <thead class="my_custom_thead">
+            <tr>
+                <th>
+                    Checkout
+                </th>
+            </tr>
+            </thead>
+<!--            <tbody>-->
+<!--            <tr>-->
+<!--                <td>-->
+<!--                    Please review your shopping cart items before proceeding with the order payment.-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-left">-->
+<!--                    Your Total is : <strong> {{total}}</strong>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+        </table>
+<!--        <div class="mx-auto">-->
+<!--            <a href="{% url 'shopapp:allProdCat' %}" class="btn btn-secondary btn-block my_custom_button">Continue Shopping</a>-->
+<!--            <a href="{% url 'shopapp:allProdCat' %}" class="btn btn-secondary btn-block my_custom_button1">Make Payment</a>-->
+<!--        </div>-->
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+

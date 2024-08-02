@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<h1>{{ item.name }}</h1>
+<p>{{ item.description }}</p>
+
+<h2>Reviews:</h2>
+<ul>
+    {% for review in reviews %}
+    <li>
+        <strong>{{ review.usr.usrname }}</strong> rated {{ review.rating }}/5
+        <p>{{ review.comment }}</p>
+        <small>{{ review.created_at }}</small>
+    </li>
+    {% empty %}
+    <li>No reviews yet.</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'add_review' item.id %}">Add a review</a>
+{% endblock %}

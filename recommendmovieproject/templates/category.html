@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+{% if category %}
+   {{ category.description|truncatewords:155 }}
+{% else %}
+    Welcome to Online Film store where you can buy different items.....
+{% endif %}
+{% endblock %}
+{% block title %}
+   {% if category %}
+        {{ category.name }} - NETFLIX
+    {% else %}
+         See our New Movie Collections - NETFLIX
+    {% endif %}
+{% endblock %}
+{% block content %}
+{% if category %}
+
+   <div>
+       <div class="row my_row_class">
+           <div class="mx-auto">
+           <p><a href="{% url 'book:allProdCat' %}">Our Movie Collections</a></p>
+       </div>
+           </div>
+   </div>
+{% endif %}
+<div class="mx_auto">
+    {% if category %}
+
+  <img src="{{category.image.url}}" alt="{{category.name}}" height="300px" width=300px">
+</div>
+        <br>
+<div>
+    <h1 class="text-center my_title">{{category.name}}</h1>
+    <p class="text-justify">{{category.description}}</p>
+</div>
+      {% else %}
+<div>
+<img class="my_image my_image_padding" src="{% static 'images/Gaming.png' %}" alt="our movies" width="1250px;">
+</div>
+<br>
+<div>
+<h1 class="text-center my_title">Our products Collections</h1>
+<p class="text-justify">Netflix is a major international subscription video on-demand over-the-top streaming service, offered by American media company Netflix, Inc.. The service primarily distributes original and acquired films and television shows from various genres, and it is available internationally in multiple languages.
+</div>
+{% endif %}
+<div class="container">
+    <div class="row mx_auto">
+         {% for product in products.object_list %}
+          <div class="my_bottom_margin col-9 col-sm-12 col-md-4 col-lg-4">
+              <div class="card text-center" style="min-width:18rem;">
+                      {% if product.image %}
+                     <a href="{{product.get_url}}"><img src="{{product.image.url}}" class="card-img-top" alt="{{product.name}}" height="400px" width="400px">
+                  {% else %}
+                      <img src="/path/to/default/image.jpg" class="card-img-top" alt="Default Image" height="400px" width="400px">
+                      {% endif %}
+                      </a>
+
+    <div class="card-body">
+        <h4>{{product.name}}</h4>
+        </div>
+<!--               <div class="card-text">-->
+<!--        <p><a href="{{review.comment}}">Add Review</a></p>-->
+<!--        </div>-->
+    </div>
+        </div>
+        {% endfor %}
+        </div>
+    <div class="mx-auto">
+        {% if products.paginator.num_pages > 1 %}
+       <hr>
+        <div class="text-center">
+            {% for pg in products.paginator.page_range %}
+            <a href="?page={{pg}}" class="btn btn-light btn-sm {% if products.number == pg %}> active {% endif %}">{{pg}}</a>
+             {% endfor %}
+        </div>
+         {% endif %}
+    </div>
+    <br>
+    </div>
+{% endblock %}

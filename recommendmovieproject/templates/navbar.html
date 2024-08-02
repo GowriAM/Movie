@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'book:allProdCat' %}">Home</a>
+        </li>
+        <li class="nav-item dropdown {% if 'book' in request.path %} active {% endif %}">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Film
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'book:allProdCat' %}">All Film</a></li>
+             {% for cat in links %}
+            <li><a class="dropdown-item" href="{{cat.get_url}}">{{cat.name}}</a></li>
+               {% endfor %}
+
+          </ul>
+                                    {% if user.is_authenticated %}
+                                    <li class="nav-link"><a class="dropdown-item" href="{% url 'book:allProdCat' %}">Hello {{user.username}}</a></li>
+                                    <li class="nav-link"><a class="dropdown-item" href="{% url 'actor:logout' %}">Logout</a></li>
+									{% else %}
+                                    <li class="nav-link"><a class="dropdown-item" href="{% url 'actor:register' %}">Register</a></li>
+									<li class="nav-link"><a class="dropdown-item" href="{% url 'actor:login' %}">Login</a></li>
+									{% endif %}
+      </ul>
+     <form class="d-flex" action="{% url 'search:SearchResult' %}" method="get">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Search" name="q" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
+
+    </div>
+  </div>
+</nav>

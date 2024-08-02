@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+
+   {{ movie.description|truncatewords:155 }}
+
+{% endblock %}
+{% block title %}
+   {% if review %}
+        {{ movie.title }} - NETFLIX
+
+{% endif %}
+{% endblock %}
+{% block content %}
+<div class="row my_movie_row_class">
+    <div class="mx_auto">
+        <p> <a href="{% url 'book:allMovieReview' %}">Home</a> | <a href ="{{movie.review.get_url}}">{{movie.review}}</a>|{{movie.title}}</p>
+    </div>
+
+<div class="container">
+<br>
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <div style="min-width:18rem">
+            <img src="{{movie.image.url}}" width="100px" height="100px" alt="{{movie.title}}">
+        </div>
+    </div>
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <div>
+            <h1 class="my_movie_title">{{movie.title}}</h1>
+<!--            <p>${{product.price}}</p>-->
+            <p class="my_title">Movie Description</p>
+            <p class="text-justify my_movie_text">{{movie.description}}</p>
+                </div>
+            </div>
+            </div>
+    </div>
+</div>
+{% endblock %}
